@@ -12,7 +12,7 @@ public class UMLClass extends UMLObject {
     private List<UMLOperation> operationsList;
     private List<UMLAssociation> associationList;
     private List<UMLGeneralization> generalizationList;
-    private List<String> dependenciesIDList;
+    private List<UMLDependency> dependencyList;
     private List<UMLInterfaceRealization> implementedInterfaces;
 
     public UMLClass(JSONObject jsonObject) {
@@ -52,7 +52,11 @@ public class UMLClass extends UMLObject {
                     }
                     this.implementedInterfaces.add(new UMLInterfaceRealization(ownedElement));
                 } else if (ownedElement.has("UMLDependency")) {
-                    // TODO
+                    if (this.dependencyList == null) {
+                        this.dependencyList = new ArrayList<>();
+                    }
+
+                    this.dependencyList.add(new UMLDependency(ownedElement));
                 } else {
                     if (this.generalizationList == null) {
                         this.generalizationList = new ArrayList<>();
@@ -75,7 +79,7 @@ public class UMLClass extends UMLObject {
                 ", operationsList=" + operationsList +
                 ", associationList=" + associationList +
                 ", motherClasses=" + generalizationList +
-                ", dependenciesIDList=" + dependenciesIDList +
+                ", dependenciesIDList=" + dependencyList +
                 ", implementedInterfaces=" + implementedInterfaces +
                 '}';
     }
@@ -92,8 +96,16 @@ public class UMLClass extends UMLObject {
         return associationList;
     }
 
-    public List<String> getDependenciesIDList() {
-        return dependenciesIDList;
+    public List<UMLDependency> getDependencyList() {
+        return dependencyList;
+    }
+
+    public List<UMLGeneralization> getGeneralizationList() {
+        return generalizationList;
+    }
+
+    public List<UMLInterfaceRealization> getImplementedInterfaces() {
+        return implementedInterfaces;
     }
 
     public Boolean isAbstract() {
@@ -120,8 +132,8 @@ public class UMLClass extends UMLObject {
         this.generalizationList.add(generalization);
     }
 
-    public void addDependency(String classId) {
-        this.dependenciesIDList.add(classId);
+    public void addDependency(UMLDependency dependency) {
+        this.dependencyList.add(dependency);
     }
 
     public void addInterfaceRealization(UMLInterfaceRealization umlInterfaceRealization) {
