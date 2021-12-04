@@ -8,6 +8,8 @@ public class UMLObject {
     private String parentRef;
     private String name;
 
+    public UMLObject() {}
+
     public UMLObject(JSONObject jsonObject) {
         this.id = jsonObject.getString("_id");
 

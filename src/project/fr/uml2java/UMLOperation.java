@@ -12,6 +12,8 @@ public class UMLOperation extends UMLObject {
 
     private List<UMLParameter> parameterList;
 
+    public UMLOperation() {}
+
     public UMLOperation(JSONObject jsonObject) {
         super(jsonObject);
 

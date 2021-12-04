@@ -6,6 +6,8 @@ public class UMLParameter extends UMLObject {
     private String type;
     private String direction;
 
+    public UMLParameter() {}
+
     public UMLParameter(JSONObject jsonObject) {
         super(jsonObject);
 
