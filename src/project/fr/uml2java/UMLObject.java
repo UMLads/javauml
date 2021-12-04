@@ -5,7 +5,7 @@ import org.json.*;
 public class UMLObject {
     private String visibility = "public";
     private String id;
-    private String parentRef;
+    private String parentRef; // id of the UMLObject that owns this UMLObject
     private String name;
 
     public UMLObject() {}
