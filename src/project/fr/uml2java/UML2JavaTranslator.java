@@ -25,7 +25,7 @@ public class UML2JavaTranslator {
     /**
      * whole .mdj file converted into a string then into a JSONObject
      * @throws IOException
-     */
+     **/
     public void getFile() throws IOException {
         StringBuilder parsable = new StringBuilder();
         int r;
@@ -51,7 +51,7 @@ public class UML2JavaTranslator {
     public JSONObject getJsonFile() {
         return jsonFile;
     }
-
+    //constructeur
     public UMLProject getProject() {
         return project;
     }
