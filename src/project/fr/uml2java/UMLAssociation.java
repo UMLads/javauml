@@ -40,4 +40,5 @@ public class UMLAssociation extends UMLObject {
     public void setEnd2(UMLAssociationEnd end2) {
         this.end2 = end2;
     }
+
 }

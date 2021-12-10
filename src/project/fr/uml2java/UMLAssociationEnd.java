@@ -18,12 +18,7 @@ public class UMLAssociationEnd extends UMLObject {
     @Override
     public String toString() {
         return "UMLAssociationEnd{" +
-                "_id='" + getId() + '\'' +
-                ", parentRef'" + getParentRef() + '\'' +
-                ", name='" + getName() + '\'' +
-                ", visibility='" + getVisibility() + '\'' +
-                ", reference='" + reference + '\'' +
-                ", value={" + value +
+
                 "}}";
     }
 

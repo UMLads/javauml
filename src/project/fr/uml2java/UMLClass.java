@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class UMLClass extends UMLObject {
@@ -14,14 +15,20 @@ public class UMLClass extends UMLObject {
     private List<UMLGeneralization> generalizationList;
     private List<UMLDependency> dependencyList;
     private List<UMLInterfaceRealization> implementedInterfaces;
+    private int nbassociations;
+    private List<String> associationTargets = new ArrayList<>();
+    private List<String> associationTargetsFromMe = new ArrayList<>();
+
+
 
     public UMLClass(JSONObject jsonObject) {
         super(jsonObject);
 
+
         if (jsonObject.has("isAbstract")) {
             this.setAbstract();
         }
-
+/*
         if (jsonObject.has("attributes")) {
             this.attributeList = new ArrayList<>();
             JSONArray attributes = jsonObject.getJSONArray("attributes");
@@ -37,18 +44,29 @@ public class UMLClass extends UMLObject {
                 this.operationsList.add(new UMLOperation(operations.getJSONObject(i)));
             }
         }
-
+*/
         if (jsonObject.has("ownedElements")) {
             JSONArray ownedElements = jsonObject.getJSONArray("ownedElements");
             for (int i = 0; i < ownedElements.length(); ++i) {
                 JSONObject ownedElement = ownedElements.getJSONObject(i);
-                if (ownedElement.has("UMLAssociation")) {
+                if (ownedElement.getString("_type").equals("UMLAssociation")) {
+
                     if (this.associationList == null) this.associationList = new ArrayList<>();
 
-                    this.associationList.add(new UMLAssociation(ownedElement));
+
+                    nbassociations = nbassociations + 1;
+
+                    UMLAssociation newAsso = new UMLAssociation(ownedElement);
+
+                    this.associationTargets.add(newAsso.getEnd2().getReference());
+                    this.associationList.add(newAsso);
+
+
+                /*}
                 } else if (ownedElement.has("UMLInterfaceRealization")) {
                     if (this.implementedInterfaces == null) {
                         this.implementedInterfaces = new ArrayList<>();
+
                     }
                     this.implementedInterfaces.add(new UMLInterfaceRealization(ownedElement));
                 } else if (ownedElement.has("UMLDependency")) {
@@ -62,7 +80,7 @@ public class UMLClass extends UMLObject {
                         this.generalizationList = new ArrayList<>();
                     }
                     this.generalizationList.add(new UMLGeneralization(ownedElement));
-                }
+              */  }
             }
         }
     }
@@ -70,9 +88,9 @@ public class UMLClass extends UMLObject {
     @Override
     public String toString() {
         return "UMLClass{" +
-                "_id='" + getId() + '\'' +
-                ", parentRef='" + getParentRef() + '\'' +
-                ", name='" + getName() + '\'' +
+               /* "_id='" + getId() + '\'' +
+                ", parentRef='" + getParentRef() + '\'' +*/
+                ", name='" + getName() + '\'' +/*
                 ", visibility='" + getVisibility() + '\'' +
                 ", _abstract=" + _abstract +
                 ", attributeList=" + attributeList +
@@ -80,8 +98,45 @@ public class UMLClass extends UMLObject {
                 ", associationList=" + associationList +
                 ", motherClasses=" + generalizationList +
                 ", dependenciesIDList=" + dependencyList +
-                ", implementedInterfaces=" + implementedInterfaces +
+                ", implementedInterfaces=" + implementedInterfaces +*/
+                ", getassociations targets = " + associationTargets +
+                ", nbAssociations= " + nbassociations +
                 '}';
+    }
+
+    public int compareTo(UMLClass umlClass){
+        return  umlClass.getNbassociations ()- this.nbassociations;
+    };
+
+    public static Comparator<UMLClass> ComparatornbAssociations = new Comparator<UMLClass>() {
+        @Override
+        public int compare(UMLClass o1, UMLClass o2) {
+            return o1.compareTo(o2);
+        }
+    };
+
+    public int getNbassociations() {
+        return nbassociations;
+    }
+
+    public List<String> getAssociationTargetsFromMe() {
+        return associationTargetsFromMe;
+    }
+
+    public void setAssociationTargetsFromMe(List<String> associationTargetsFromMe) {
+        this.associationTargetsFromMe = associationTargetsFromMe;
+    }
+
+    public List<String> getAssociationTargets() {
+        return associationTargets;
+    }
+
+    public void setAssociationTargets(List<String> associationTargets) {
+        this.associationTargets = associationTargets;
+    }
+
+    public void setNbassociations(int nbassociations) {
+        this.nbassociations = nbassociations;
     }
 
     public List<UMLAttribute> getAttributeList() {

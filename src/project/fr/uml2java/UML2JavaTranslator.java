@@ -33,7 +33,6 @@ public class UML2JavaTranslator {
 
             parsable.append((char) r);
         }
-        System.out.println(parsable);
         jsonFile = new JSONObject(parsable.toString());
     }
 
@@ -47,6 +46,10 @@ public class UML2JavaTranslator {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public JSONObject getJsonFile() {
+        return jsonFile;
     }
 
     public UMLProject getProject() {

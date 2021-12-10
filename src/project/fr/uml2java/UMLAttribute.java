@@ -24,7 +24,7 @@ public class UMLAttribute extends UMLObject {
             this.setStatic();
         }
 
-        this.type = jsonObject.getString("type");
+        this.type = jsonObject.getString("_type");
 
         if (jsonObject.has("multiplicity")) {
             this.multiplicity = jsonObject.getString("multiplicity");
@@ -46,18 +46,7 @@ public class UMLAttribute extends UMLObject {
     @Override
     public String toString() {
         return "UMLAttribute{" +
-                "_id='" + getId() +  '\'' +
-                ", parentRef='" + getParentRef() + '\'' +
-                ", name='" + getName() + '\'' +
-                ", visibility='" + getVisibility() + '\'' +
-                ", _static=" + _static +
-                ", multiplicity='" + multiplicity + '\'' +
-                ", readOnly=" + readOnly +
-                ", derived=" + derived +
-                ", isId=" + isId +
-                ", defaultValue='" + defaultValue + '\'' +
-                ", type='" + type + '\'' +
-                ", aggregation='" + aggregation +
+
                 '}';
     }
 
